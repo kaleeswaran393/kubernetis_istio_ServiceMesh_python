@@ -1,4 +1,5 @@
 # kubernatis_istio_stickysession_Scaling
+Example for header based routing and header based sticky session using istio sidecar proxy, Gateway, VirtualService and DesticationRule,and Autoscaling
 
 ## Key features :
 	Json content based sticky session and routing
@@ -7,6 +8,14 @@
 	the sticky session would expire in one minute
 	Enabled Horizontal pod if resource utilization reaches 50%
 ## Steps
+### 1. Install istio in minikube
+        https://doc.istio.cn/en/docs/setup/kubernetes/download-release/
+        https://github.com/istio/istio/releases
+	https://istio.io/docs/setup/kubernetes/install/kubernetes/ (Change gateway type as NodePort and install in demo.xml)
+	https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
+	https://istio.io/docs/examples/bookinfo/
+	
+      
 ### 1. Backend Server - Java
 	   1. Endpoints are  - hit_backend, backend1, backend2, backend3 
 ### 2. K8s Objects
