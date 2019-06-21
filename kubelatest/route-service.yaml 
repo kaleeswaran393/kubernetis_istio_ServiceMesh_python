@@ -1,0 +1,47 @@
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: route-service
+spec:
+  selector:
+    app: route-service
+  ports:
+    - port: 8080 # Default port for image
+
+---
+
+kind: ReplicaSet
+apiVersion: extensions/v1beta1
+metadata:
+   name: route-service
+spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: route-service
+   template:
+     metadata:
+       labels:
+         app: route-service
+     spec:
+       containers:
+       - name: route-service
+         image: rvasuki/kube
+         imagePullPolicy: "Always"
+         ports:
+         - containerPort: 80
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpas-route-service
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: route-service
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50

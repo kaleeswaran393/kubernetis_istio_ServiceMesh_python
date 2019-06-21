@@ -1,0 +1,47 @@
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend-3
+spec:
+  selector:
+    app: backend-3
+  ports:
+    - port: 8080 # Default port for image
+
+---
+
+kind: ReplicaSet
+apiVersion: extensions/v1beta1
+metadata:
+   name: backend-3
+spec:
+   replicas: 2
+   selector:
+     matchLabels:
+       app: backend-3
+   template:
+     metadata:
+       labels:
+         app: backend-3
+     spec:
+       containers:
+       - name: backend-3
+         image: rvasuki/kube3
+         imagePullPolicy: "Always"
+         ports:
+         - containerPort: 8080
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpas-backend-3
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: backend-3
+  minReplicas: 3
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50

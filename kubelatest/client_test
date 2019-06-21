@@ -1,0 +1,17 @@
+
+curl -d '{"target":"backend-2", "username":"user one"}' -H "Content-Type: application/json" -X POST <external-ip>:<port>/hit_backend
+
+curl -d '{"target":"backend-3", "username":"user one"}' -H "Content-Type: application/json" -X POST <external-ip>:<port>/hit_backend
+
+
+curl -d '{"target":"backend-1", "username":"user1"}' -H "Content-Type: application/json" -X POST https://192.168.99.100:80/hit_backend
+Output: {'username': 'user1', 'target': 'backend-1', 'podIp': '172.17.0.4'}
+
+curl -d '{"target":"backend-2", "username":"user2"}' -H "Content-Type: application/json" -X POST https://192.168.99.100:80/hit_backend
+Output: {'username': 'user2', 'target': 'backend-2', 'podIp': '172.17.0.11'}
+
+curl -d '{"target":"backend-3", "username":"user3"}' -H "Content-Type: application/json" -X POST https://192.168.99.100:80/hit_backend
+Output: {'username': 'user3', 'target': 'backend-3', 'podIp': '172.17.0.12'}
+
+curl -d '{"target":"backend-1", "username":"user1"}' -H "Content-Type: application/json" -X POST https://192.168.99.100:80/hit_backend
+Output: {'username': 'user1', 'target': 'backend-3', 'podIp': '172.17.0.4'}
