@@ -12,7 +12,8 @@ COPY . /app
 RUN pip3 install virtualenv
 RUN virtualenv venv 
 RUN source venv/bin/activate
-RUN pip install flask flask-jsonpify flask-sqlalchemy flask-restful
+RUN pip install flask flask-jsonpify flask-sqlalchemy flask-restful 
+RUN pip install requests
 EXPOSE 8080
 ENTRYPOINT [ "python" ]
-CMD [ "app.py" ]
+CMD [ "app-1.py" ]

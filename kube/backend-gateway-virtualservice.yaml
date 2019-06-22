@@ -1,0 +1,37 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hit-backend-virtual-service
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - hit-backend-gateway
+  http:
+  - match:
+    - headers:
+        target:
+          exact: backend-2
+    route:
+    - destination:
+        host: backend-2.default.svc.cluster.local
+        port:
+          number: 8080
+  - match:
+    - headers:
+        target:
+          exact: backend-1
+    route:
+    - destination:
+        host: backend-1.default.svc.cluster.local
+        port:
+          number: 8080
+  - match:
+    - headers:
+        target:
+          exact: backend-3
+    route:
+    - destination:
+        host: backend-3.default.svc.cluster.local
+        port:
+          number: 8080

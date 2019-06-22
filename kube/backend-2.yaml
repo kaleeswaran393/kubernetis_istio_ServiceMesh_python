@@ -2,10 +2,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: route-service
+  name: backend-2
 spec:
   selector:
-    app: route-service
+    app: backend-2
   ports:
     - port: 8080 # Default port for image
 
@@ -14,34 +14,35 @@ spec:
 kind: ReplicaSet
 apiVersion: extensions/v1beta1
 metadata:
-   name: route-service
+   name: backend-2
 spec:
-   replicas: 1
+   replicas: 2
    selector:
      matchLabels:
-       app: route-service
+       app: backend-2
    template:
      metadata:
        labels:
-         app: route-service
+         app: backend-2
      spec:
        containers:
-       - name: route-service
-         image: rvasuki/kube
+       - name: backend-2
+         image: kaleeswarankaruppusamy/k8s:backend2
          imagePullPolicy: "Always"
          ports:
-         - containerPort: 80
+         - containerPort: 8080
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpas-route-service
+  name: hpas-backend-2
   namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: ReplicaSet
-    name: route-service
-  minReplicas: 1
-  maxReplicas: 3
+    name: backend-2
+  minReplicas: 2
+  maxReplicas: 5
   targetCPUUtilizationPercentage: 50
+
