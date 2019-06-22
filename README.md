@@ -18,9 +18,9 @@ Output: {"service_name":"backend-1","username":"user one","pod_id":"1"}
 	
 ## Steps
 
-### 1. Install istio in minikube
+### 1. Steps to install istio in minikube
         https://doc.istio.cn/en/docs/setup/kubernetes/download-release/
-        https://github.com/istio/istio/releases
+	https://github.com/istio/istio/releases
 	https://istio.io/docs/setup/kubernetes/install/kubernetes/ (Change gateway type as NodePort and install in demo.xml)
 	https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
 	https://istio.io/docs/examples/bookinfo/
