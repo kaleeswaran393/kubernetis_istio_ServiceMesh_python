@@ -9,6 +9,8 @@ Output: {"service_name":"backend-1","username":"user one","pod_id":"1"}
 - Use "target" field in request body or request header to route to corresponding backend (i.e: "target":"backend-1" route to backend-1 service)
 - sticky session: request with the same "username" should reach the same replicas if called within 1 minute from the previous one
 
+![Screenshot](K8s Istio.png)
+
 ## Key features :
 	Header based routing using Istio VirtualService and Gateway
 	Username based Sticky session using Istio DestinationRule
