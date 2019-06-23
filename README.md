@@ -18,32 +18,64 @@ Output: {"service_name":"backend-1","username":"user one","pod_id":"1"}
 ## Steps
 
 ### 1. Steps to install istio in minikube
-        1. Minikube should be installed and up n running
-        2. Download Istio https://doc.istio.cn/en/docs/setup/kubernetes/download-release/
+	1. Minikube should be installed and up n running
+	2. Download Istio https://doc.istio.cn/en/docs/setup/kubernetes/download-release/
 	3. Follow steps https://istio.io/docs/setup/kubernetes/#downloading-the-release
-	2. https://github.com/istio/istio/releases
-	3. https://istio.io/docs/setup/kubernetes/install/kubernetes/ (Change gateway type as NodePort and install in demo.xml)
-	4. https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
-	5. https://istio.io/docs/examples/bookinfo/
-	6. Change istio-ingressgateway TYPE LoadBalancer to NodePort in install/kubernetes/istio-demo.yaml
+	4. https://github.com/istio/istio/releases
+	5. https://istio.io/docs/setup/kubernetes/install/kubernetes/ (Change gateway type as NodePort and install in demo.xml)
+	6. https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
+	7. https://istio.io/docs/examples/bookinfo/
+	8. Change istio-ingressgateway TYPE LoadBalancer to NodePort in install/kubernetes/istio-demo.yaml
 	
 	
-### 2. Backend Server - Python
-	  
-### 3. K8s Resources
+### 2. Backend Server - Python (REST service)
+	from flask import Flask, jsonify,request
+	import socket
+	import requests
+	app = Flask(__name__)
+	@app.route('/hit-backend', methods=['POST'])
+	def backend1():
+	content = request.get_json()
+	content["target"] = "backend-1"
+	content["podIp"] = socket.gethostbyname(socket.gethostname())
+	return str(content);
+	if __name__=='__main__':
+	app.run(debug=True, host='0.0.0.0',port=8080)  
+### 3. Docker file for Python 
+	FROM alpine:3.9
+
+	RUN apk add --no-cache python3 && \
+	    python3 -m ensurepip && \
+	    rm -r /usr/lib/python*/ensurepip && \
+	    pip3 install --upgrade pip setuptools && \
+	    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
+	    if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
+	    rm -r /root/.cache
+	WORKDIR /app
+	COPY . /app
+	RUN pip3 install virtualenv
+	RUN virtualenv venv 
+	RUN source venv/bin/activate
+	RUN pip install flask flask-jsonpify flask-sqlalchemy flask-restful 
+	RUN pip install requests
+	EXPOSE 8080
+	ENTRYPOINT [ "python" ]
+	CMD [ "app-1.py" ]
+	
+### 4. K8s Resources
 	1. K8s Services are  Backend-1, backend-2, backend-3
 	2. ReplicaSet for corresponging services
 	3. Horizantal Auto Scaling for ReplicaSet
 	
-### 4 K8s - Istio Resources
+### 5 K8s - Istio Resources
 	1. DestinationRule to maintain sticky session
 	2. Virtual Service for Header based routing
 	3. Istio Gateway
-### 5. Dockerfile
+### 6. Dockerfile
 	 1.docker build -t kubia:1.0.0 .
 	 2.docker tag kubia:1.0.0  kaleeswarankaruppusamy/e2esystem:kubia4
 	 3.docker push  <DOCKER_REPO>:kubia4
-### 6. K8S Deployment Files   (use --validate=false)
+### 7. K8S Deployment Files   (use --validate=false)
 	  1. kubectl apply -f backend-1.yaml
 	  2. kubectl apply -f backend-2.yaml
 	  3. kubectl apply -f backend-3.yaml
@@ -52,7 +84,7 @@ Output: {"service_name":"backend-1","username":"user one","pod_id":"1"}
 	  6. kubectl apply -f backend-3-Destination-Rule.yaml
 	  7. kubectl apply -f backend-gateway.yaml
 	  8. kubectl apply -f backend-gateway-virtualservice.yaml
-### 7.Sample Request and Reponse
+### 8.Sample Request and Reponse
 	POST /hit_backend HTTP/1.1
 	target:backend-2
         Content-Type:application/json
