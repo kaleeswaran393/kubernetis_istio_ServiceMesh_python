@@ -10,43 +10,49 @@ Output: {"service_name":"backend-1","username":"user one","pod_id":"1"}
 - sticky session: request with the same "username" should reach the same replicas if called within 1 minute from the previous one
 
 ## Key features :
-	Json content based sticky session and routing
-	Username based sticky session
-	routing to backend based on the input field target
-	the sticky session would expire in one minute
+	Header based routing using Istio VirtualService and Gateway
+	Username based Sticky session using Istio DestinationRule
+	The sticky session should expire in one minute
 	Enabled Horizontal pod if resource utilization reaches 50%
 	
 ## Steps
 
 ### 1. Steps to install istio in minikube
-        https://doc.istio.cn/en/docs/setup/kubernetes/download-release/
-	https://github.com/istio/istio/releases
-	https://istio.io/docs/setup/kubernetes/install/kubernetes/ (Change gateway type as NodePort and install in demo.xml)
-	https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
-	https://istio.io/docs/examples/bookinfo/
+        1. Minikube should be installed and up n running
+        2. Download Istio https://doc.istio.cn/en/docs/setup/kubernetes/download-release/
+	3. Follow steps https://istio.io/docs/setup/kubernetes/#downloading-the-release
+	2. https://github.com/istio/istio/releases
+	3. https://istio.io/docs/setup/kubernetes/install/kubernetes/ (Change gateway type as NodePort and install in demo.xml)
+	4. https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports
+	5. https://istio.io/docs/examples/bookinfo/
+	6. Change istio-ingressgateway TYPE LoadBalancer to NodePort in install/kubernetes/istio-demo.yaml
 	
-### 1. Backend Server - Python
+	
+### 2. Backend Server - Python
 	  
-### 2. K8s Resources
+### 3. K8s Resources
 	1. K8s Services are  Backend-1, backend-2, backend-3
 	2. ReplicaSet for corresponging services
 	3. Horizantal Auto Scaling for ReplicaSet
 	
-### 3 K8s - Istio Resources
+### 4 K8s - Istio Resources
 	1. DestinationRule to maintain sticky session
 	2. Virtual Service for Header based routing
 	3. Istio Gateway
-### 4. Dockerfile
+### 5. Dockerfile
 	 1.docker build -t kubia:1.0.0 .
 	 2.docker tag kubia:1.0.0  kaleeswarankaruppusamy/e2esystem:kubia4
 	 3.docker push  <DOCKER_REPO>:kubia4
-### 5. K8S Deployment Files
-	  1. kubectl apply -f route-service.yaml
-	  2. kubectl apply -f backend-ingress.yaml
-	  3. kubectl apply -f backend-1.yaml
-	  4. kubectl apply -f backend-2.yaml
-	  5. kubectl apply -f backend-3.yaml
-### 6.Sample Request and Reponse
+### 6. K8S Deployment Files   (use --validate=false)
+	  1. kubectl apply -f backend-1.yaml
+	  2. kubectl apply -f backend-2.yaml
+	  3. kubectl apply -f backend-3.yaml
+	  4. kubectl apply -f backend-1-Destination-Rule.yaml
+	  5. kubectl apply -f backend-2-Destination-Rule.yaml
+	  6. kubectl apply -f backend-3-Destination-Rule.yaml
+	  7. kubectl apply -f backend-gateway.yaml
+	  8. kubectl apply -f backend-gateway-virtualservice.yaml
+### 7.Sample Request and Reponse
 	POST /hit_backend HTTP/1.1
 	target:backend-2
         Content-Type:application/json
