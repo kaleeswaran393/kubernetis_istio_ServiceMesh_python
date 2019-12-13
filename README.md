@@ -1,3 +1,5 @@
+![Screenshot](K8s_Istio.png)
+
 # Use Case : 
 
 Define a service route for stateful service using header & sticky session based routing using ingress, virtualservice and destination rule.
