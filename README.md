@@ -24,7 +24,7 @@ each backend with a minimum of 3 and a maximum of 5 replicas for the above serve
     
         Sticky session - request with the same "username" should reach the same replicas if called within 1 minute from the previous one
 
-![Screenshot](K8s_Istio.png)
+![Screenshot](k8s.png)
 
 ## Key features :
 	Header based routing using Istio VirtualService and Gateway
