@@ -8,3 +8,4 @@ spec:
     loadBalancer:
       consistentHash:
         httpHeaderName: x-user
+        ttl: 1m
