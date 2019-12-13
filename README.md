@@ -36,6 +36,10 @@ each backend with a minimum of 3 and a maximum of 5 replicas for the above serve
 
 ### 1. Steps to install istio in minikube
 	1. Minikube should be installed and up n running
+	    1.brew cask reinstall minikube
+	    2.minikube start --memory=5120
+	    3.minikube stop
+	    4.minikube restart
 	2. Download Istio https://doc.istio.cn/en/docs/setup/kubernetes/download-release/
 	3. Follow steps https://istio.io/docs/setup/kubernetes/#downloading-the-release
 	4. https://github.com/istio/istio/releases
