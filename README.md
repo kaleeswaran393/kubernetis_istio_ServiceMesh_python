@@ -1,4 +1,4 @@
-![Screenshot]Screenshot 2019-12-14 at 1.41.44 AM.png)
+![Screenshot](istio.png)
 ![Screenshot](K8s_Istio.png)
 
 # Use Case : 
