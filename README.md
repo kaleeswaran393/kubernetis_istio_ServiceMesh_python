@@ -1,6 +1,6 @@
 # Use Case : 
 
-Define a service route for header & sticky session based routing using ingress, virtualservice and destination rule.
+Define a service route for stateful service using header & sticky session based routing using ingress, virtualservice and destination rule.
 
 1. Deploy three simple python backend services i.e app1.py, app2.py, app3.py. all have the same endpoint /hit_backend, which receives a message over HTTP REST endpoint (/hit_backend) and responds with the following output
 
