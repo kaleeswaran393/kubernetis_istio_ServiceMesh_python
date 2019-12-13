@@ -1,5 +1,5 @@
 # Use Case : 
-1. Three simple python backend-service (i.e: app1.py, app2.py, app3.py), all have the same endpoint /hit_backend, which receives a message over an HTTP REST endpoint (/hit_backend) and responds with the following output:
+1. Three simple python backend services i.e app1.py, app2.py, app3.py. all have the same endpoint /hit_backend, which receives a message over HTTP REST endpoint (/hit_backend) and responds with the following output:
 Input: {"target":"backend-1", "username":"user one"}
 Output: {"service_name":"backend-1","username":"user one","pod_id":"1"}
  
