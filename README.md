@@ -8,6 +8,7 @@ Define a service route for header & sticky session based routing using ingress, 
 		Response: {"service_name":"backend-1","username":"user one","pod_id":"1"}
  
 2. These 3 backend should be hosted on k8s setup within minikube/localhos.
+
                 `app1.py -> backend-1`
 		`app2.py -> backend-2`
 		`app3.py -> backend-3`
@@ -15,9 +16,12 @@ Define a service route for header & sticky session based routing using ingress, 
 each backend with a minimum of 3 and a maximum of 5 replicas for the above server process (auto-scaling).
  
 3. A loadbalancer with k8s ingress or custom nginx/haproxy ingress controller that route /hit_backend traffic based on the following routing rules:
+
     Rule-1 : 
+    
        Use "target" field in request body or request header to route to corresponding backend (i.e: "target":"backend-1" route to backend-1 service)
     Rule-2: 
+    
         Sticky session - request with the same "username" should reach the same replicas if called within 1 minute from the previous one
 
 ![Screenshot](K8s_Istio.png)
