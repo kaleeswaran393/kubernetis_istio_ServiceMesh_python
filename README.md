@@ -1,5 +1,4 @@
 ![Screenshot](Istiodia.png)
-![Screenshot](K8s_Istio.png)
 
 # Use Case : 
 
@@ -7,27 +6,27 @@ Define a service route for stateful service using header & sticky session based 
 
 1. Deploy three simple python backend services i.e app1.py, app2.py, app3.py. all have the same endpoint /hit_backend, which receives a message over HTTP REST endpoint (/hit_backend) and responds with the following output
 
-		Request: {"target":"backend-1", "username":"user one"}
-		Response: {"service_name":"backend-1","username":"user one","pod_id":"1"}
+	Request: {"target":"backend-1", "username":"user one"}
+	Response: {"service_name":"backend-1","username":"user one","pod_id":"1"}
  
 2. These 3 backend should be hosted on k8s setup within minikube/localhos.
 
-		`app1.py -> backend-1`
-		`app2.py -> backend-2`
-		`app3.py -> backend-3`
+        `app1.py -> backend-1`
+        `app2.py -> backend-2`
+	`app3.py -> backend-3`
 
 each backend with a minimum of 3 and a maximum of 5 replicas for the above server process (auto-scaling).
  
 3. A loadbalancer with k8s ingress or custom nginx/haproxy ingress controller that route /hit_backend traffic based on the following routing rules:
 
-    Rule-1 : 
+Rule-1 : 
     
-       Use "target" field in request body or request header to route to corresponding backend (i.e: "target":"backend-1" route to backend-1 service)
-    Rule-2: 
-    
-        Sticky session - request with the same "username" should reach the same replicas if called within 1 minute from the previous one
+  Use "target" field in request body or request header to route to corresponding backend (i.e: "target":"backend-1" route to backend-1 service
+  
+Rule-2: 
+   Sticky session - request with the same "username" should reach the same replicas if called within 1 minute from the previous one
 
-![Screenshot](k8s.png)
+![Screenshot](demo.png)
 
 ## Key features :
 	Header based routing using Istio VirtualService and Gateway
