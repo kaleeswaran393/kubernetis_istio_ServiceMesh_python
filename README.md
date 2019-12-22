@@ -1,4 +1,4 @@
-![Screenshot](istio.jpeg)
+![Screenshot](Istiodia.png)
 ![Screenshot](K8s_Istio.png)
 
 # Use Case : 
