@@ -24,6 +24,7 @@ Rule-1 :
   Use "target" field in request body or request header to route to corresponding backend (i.e: "target":"backend-1" route to backend-1 service
   
 Rule-2: 
+
    Sticky session - request with the same "username" should reach the same replicas if called within 1 minute from the previous one
 
 ![Screenshot](demo.png)
