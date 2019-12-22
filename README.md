@@ -11,9 +11,9 @@ Define a service route for stateful service using header & sticky session based 
  
 2. These 3 backend should be hosted on k8s setup within minikube/localhos.
 
-        `app1.py -> backend-1`
-        `app2.py -> backend-2`
-	`app3.py -> backend-3`
+`app1.py -> backend-1`
+`app2.py -> backend-2`
+`app3.py -> backend-3`
 
 each backend with a minimum of 3 and a maximum of 5 replicas for the above server process (auto-scaling).
  
