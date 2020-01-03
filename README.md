@@ -148,7 +148,7 @@ Rule-2:
 	12. kubectl get pod
 	13. kubectl get deplopyment
 	14. kubectl get ReplicaSet
-### K8s Objects
+### K8s Objects (v1/serverresources.json)
             "kind": "APIResourceList",
             "kind": "Binding",
             "kind": "ComponentStatus",
@@ -186,3 +186,17 @@ Rule-2:
             "kind": "Service",
             "kind": "ServiceProxyOptions",
             "kind": "Service",
+### Objects (apps/v1/serverresources.json)
+            "kind": "APIResourceList",
+            "kind": "ControllerRevision",
+            "kind": "DaemonSet",
+            "kind": "DaemonSet",
+            "kind": "Deployment",
+            "kind": "Scale",
+            "kind": "Deployment",
+            "kind": "ReplicaSet",
+            "kind": "Scale",
+            "kind": "ReplicaSet",
+            "kind": "StatefulSet",
+            "kind": "Scale",
+            "kind": "StatefulSet",
