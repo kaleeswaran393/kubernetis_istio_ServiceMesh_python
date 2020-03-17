@@ -100,6 +100,7 @@ Rule-2:
 	 2.doker run -d --name kubia -it kubia:1.0.0
 	 3.docker tag kubia:1.0.0  kaleeswarankaruppusamy/e2esystem:kubia4
 	 4.docker push  <DOCKER_REPO>:kubia4
+	 5.docker exec -it kubia bash
 ### 7. K8S Deployment Files   (use --validate=false)
 	  1. kubectl apply -f backend-1.yaml
 	  2. kubectl apply -f backend-2.yaml
