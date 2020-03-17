@@ -135,6 +135,7 @@ Rule-2:
 	docker ps -a 
 	docker stop <containerid>
 	docker rm 
+	docker logs <containername>
 ### K8S Command
 	1. brew cask install minikube   #install using virtualbox
 	2. minikube status
