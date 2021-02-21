@@ -136,6 +136,55 @@ Rule-2:
 	docker stop <containerid>
 	docker rm 
 	docker logs <containername>
+	pd -ef 
+	docker log -f <container>
+	docker stats <container>
+	docker events 
+	
+### Process output
+
+	docker top <containername>
+	ps ua | grep sleep
+	ps axlfww
+	ps -ejH
+	
+	pstree -f <pidof docker>
+	
+	
+### Process insfpction
+       strace -p 31292
+       lsof -p  pid
+       
+ ### Process insfpction
+       sudo netstat -an
+       
+       netstat -anp
+       docker history
+       ls /var/lib/docker
+       
+  ### FILE Inspection
+      sudo docker diff <container>
+  ### Executable DRIVER 
+       docker default driver is native 
+       Know the difference of Storage vs execution Driver
+       docker -d -e lxc
+       
+  ### Storage DRIVER 
+       AUFS - supported in linux, not supported in Redhat, CentOS
+       devicemapper - supports redhat CentOS
+       BTFS - redhat based system does not support SELinux (support copy on driver)
+       VFS - simplest and slowest 
+       Overlay - mainline supoortted by linux 
+       docker -d --storage-driver = devicemapper
+       
+   ### Security
+       lsmod   - to list continer access we have 
+       more /host_etc/shadow
+       dont run container in UID=0, run non previlage mode 
+       --privileged=true
+       
+       
+	
 ### K8S Command
 	1. brew cask install minikube   #install using virtualbox
 	2. minikube status
